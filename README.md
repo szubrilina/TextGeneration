@@ -1,13 +1,13 @@
 # TextGeneration
  Python HW
 
-**Working version** of code in file: *TextGeneration.py*
+**Working version** of code in file: `TextGeneration.py`
 
 Following text was used for generating probabilities: [Carroll Lewis - Alices Adventures in Wonderland](https://drive.google.com/file/d/1khBh2dAaTVcYQ2WAESrf6yml0Jx3vub_/view?usp=sharing)
 
 **Examples of running programm:**
 * text generation:  
-    `generate_text --probabilities_file <filename.json> --depth <int> --output_file <filename2.txt> --number_of_tokens <int> --uniform_proba <float>`
+    `generate_text --probabilities_file <filename.json> --depth <int> --output_file <filename.txt> --number_of_tokens <int> --uniform_proba <float>`
 
   if *output_file* is not state, then it prints result in console  
 
