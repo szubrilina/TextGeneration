@@ -7,7 +7,7 @@ Following text was used for generating probabilities: [Carroll Lewis - Alices Ad
 
 **Examples of running programm:**
 * text generation:  
-    *generate_text --probabilities_file <filename.json> --depth <depth> --output_file <filename2.txt> --number_of_tokens <number> --uniform_proba <float>*
+    `generate_text --probabilities_file <filename.json> --depth <int> --output_file <filename2.txt> --number_of_tokens <int> --uniform_proba <float>`
 
   if *output_file* is not state, then it prints result in console  
 
@@ -15,7 +15,7 @@ Following text was used for generating probabilities: [Carroll Lewis - Alices Ad
 
 
 * counting probabilities:  
-    *calculate_probabilities --input_file <filename1.txt> --probabilities_file <filename2.json> --depth <depth>*
+    `calculate_probabilities --input_file <filename1.txt> --probabilities_file <filename2.json> --depth <int>`
 
 ---
 
