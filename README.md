@@ -1,23 +1,23 @@
 # TextGeneration
  Python HW
 
-**Рабочая версия в файле: < TextGeneration.py >**
-Использовался текст: [Carroll Lewis - Alices Adventures in Wonderland] (https://drive.google.com/file/d/1khBh2dAaTVcYQ2WAESrf6yml0Jx3vub_/view?usp=sharing)
+**Working version of code in file: < TextGeneration.py >**
+Following text was used for generating probabilities: [Carroll Lewis - Alices Adventures in Wonderland] (https://drive.google.com/file/d/1khBh2dAaTVcYQ2WAESrf6yml0Jx3vub_/view?usp=sharing)
 
-**Примеры запуска программы:**
-* режим генерации текста:
-< generate_text --probabilities_file <filename.json> --depth <depth> --output_file <filename2.txt> --number_of_tokens <number> --uniform_proba <float> >
+**Examples of running programm:**
+* text generation:
+< generate_text --probabilities_file <filename.json> --depth <depth> --output_file <filename2.txt> --number_of_tokens <number> --uniform_proba <float> 
 
-если < output_file > не указан, то вывод в консоль
-если < uniform_proba > не указана, то она равна 0
+if < output_file > is not state, then it prints result in console 
+if < uniform_proba > is not state, then default value is 0 >
 
 
-* режим подсчета вероятностей:
+* counting probabilities:
 < calculate_probabilities --input_file <filename1.txt> --probabilities_file <filename2.json> --depth <depth> >
 
 ---
 
-**Результаты работы:**
+**Examples of result:**
 Rabbit moment. "I never was so her how she would feel very queer to me! 
 There was a queer-shaped little creature, but said nothing the proper and the others all joined in chorus"!
 
