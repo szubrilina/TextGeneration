@@ -1,7 +1,7 @@
 # TextGeneration
  Python HW
 
-**Working version ** of code in file: < TextGeneration.py >
+**Working version** of code in file: *TextGeneration.py*
 
 Following text was used for generating probabilities: [Carroll Lewis - Alices Adventures in Wonderland](https://drive.google.com/file/d/1khBh2dAaTVcYQ2WAESrf6yml0Jx3vub_/view?usp=sharing)
 
