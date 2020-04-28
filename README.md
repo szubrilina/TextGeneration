@@ -9,8 +9,9 @@ Following text was used for generating probabilities: [Carroll Lewis - Alices Ad
 * text generation:
     generate_text --probabilities_file <filename.json> --depth <depth> --output_file <filename2.txt> --number_of_tokens <number> --uniform_proba <float> 
 
-  if < output_file > is not state, then it prints result in console 
-  if < uniform_proba > is not state, then default value is 0 
+  if < output_file > is not state, then it prints result in console  
+
+  if < uniform_proba > is not state, then default value is 0  
 
 
 * counting probabilities:
@@ -18,10 +19,12 @@ Following text was used for generating probabilities: [Carroll Lewis - Alices Ad
 
 ---
 
-**Examples of result:**
+**Examples of result:**  
+
 Rabbit moment. "I never was so her how she would feel very queer to me! 
 There was a queer-shaped little creature, but said nothing the proper and
-the others all joined in chorus"!
+the others all joined in chorus"!  
+
 
 All spoke at once the thimble, saying to herself "It’s all his fancy sneezes; 
 was to eat the comfits: this fireplace nearer to of history, you know—" 
