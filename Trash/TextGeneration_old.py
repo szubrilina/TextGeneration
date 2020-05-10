@@ -3,65 +3,63 @@ import string
 import json
 import argparse
 import sys
-import collections
-import re
 
 # ---------------------------------------------------------------------------
 # ---------------------CALCULATING PROBABILITIES-----------------------------
 # ---------------------------------------------------------------------------
 
 
-def final_format(string):
+def final_format(str):
 
-    if len(string) <= 1:
-        return string
+    if len(str) <= 1:
+        return str
 
     for i in range(3):
-        for char in stringing.punctuation:
-            string = string.replace(char + " " + char, char)
+        for ch1 in string.punctuation:
+            str = str.replace(ch1 + " " + ch1, ch1)
 
-    string = string.replace(" ,", ",")
-    string = string.replace(" .", ".")
-    string = string.replace(" !", "!")
-    string = string.replace(" '", "'")
-    string = string.replace(" :", ":")
-    string = string.replace(" ;", ";")
-    string = string.replace(" $", "$")
-    string = string.replace(" %", "%")
-    string = string.replace(" ?", "?")
-    string = string.replace(" )", ")")
-    string = string.replace("( ", "(")
-    string = string.replace(",.", ".")
-    string = string.replace(",)", ")")
+    str = str.replace(" ,", ",")
+    str = str.replace(" .", ".")
+    str = str.replace(" !", "!")
+    str = str.replace(" '", "'")
+    str = str.replace(" :", ":")
+    str = str.replace(" ;", ";")
+    str = str.replace(" $", "$")
+    str = str.replace(" %", "%")
+    str = str.replace(" ?", "?")
+    str = str.replace(" )", ")")
+    str = str.replace("( ", "(")
+    str = str.replace(",.", ".")
+    str = str.replace(",)", ")")
 
-    string = string.lstringip()
-    string = string.lstringip((stringing.punctuation).replace('"', ''))
-    string = string.rstringip(";:,")
+    str = str.lstrip()
+    str = str.lstrip((string.punctuation).replace('"', ''))
+    str = str.rstrip(";:,")
 
-    new_string = ""
+    new_str = ""
     # quotes = 0
     # brackets = 0
 
     quotes = 0
     brackets = ""
 
-    is_skiping_next_space = 0
-    for ch in string:
+    next_step = 0
+    for ch in str:
         fl = 1
 
-        if is_skiping_next_space == 1 and ch not in stringing.ascii_letters:
+        if next_step == 1 and ch not in string.ascii_letters:
             continue
 
-        if is_skiping_next_space == 1 and ch in stringing.ascii_letters:
-            is_skiping_next_space = 0
+        if next_step == 1 and ch in string.ascii_letters:
+            next_step = 0
 
         if ch == '"':
             if quotes > 0:
                 quotes -= 1
-                new_string = new_string[:-1]
+                new_str = new_str[:-1]
             else:
                 quotes += 1
-                is_skiping_next_space = 1
+                next_step = 1
 
         if ch == ')':
             if len(brackets) > 0:
@@ -73,63 +71,73 @@ def final_format(string):
             brackets += '('
 
         if fl:
-            new_string += ch
+            new_str += ch
 
-    string = new_string
+    str = new_str
 
-    string = string.replace(" )", ")")
-    string = string.replace("( ", "(")
+    str = str.replace(" )", ")")
+    str = str.replace("( ", "(")
 
-    string = string.replace("  ", " ")
+    str = str.replace("  ", " ")
 
-    for ch in stringing.ascii_lowercase:
-        string = string.replace(". " + ch, ". " + ch.upper())
-    for ch in stringing.ascii_lowercase:
-        string = string.replace("? " + ch, "? " + ch.upper())
-    for ch in stringing.ascii_lowercase:
-        string = string.replace("! " + ch, "! " + ch.upper())
-    for ch in stringing.ascii_lowercase:
-        string = string.replace(", " + ch, ", " + ch.lower())
+    for ch in string.ascii_lowercase:
+        str = str.replace(". " + ch, ". " + ch.upper())
+    for ch in string.ascii_lowercase:
+        str = str.replace("? " + ch, "? " + ch.upper())
+    for ch in string.ascii_lowercase:
+        str = str.replace("! " + ch, "! " + ch.upper())
+    for ch in string.ascii_lowercase:
+        str = str.replace(", " + ch, ", " + ch.lower())
 
-    string = string[::-1]
-    string = (string).replace('(', "", len(brackets))
-    string = (string).replace('"', "", quotes)
-    string = string[::-1]
+    str = str[::-1]
+    str = (str).replace('(', "", len(brackets))
+    str = (str).replace('"', "", quotes)
+    str = str[::-1]
 
-    string = string.rstringip()
-    string = string.lstringip()
+    str = str.rstrip()
+    str = str.lstrip()
 
-    string = string.replace("  ", " ")
+    str = str.replace("  ", " ")
 
-    if string != "" and string[-1] not in "!?.":
-        string += '.'
+    if str != "" and str[-1] not in "!?.":
+        str += '.'
 
-    if len(string) >= 2:
-        string = string[0].upper() + string[1:]
+    if len(str) >= 2:
+        str = str[0].upper() + str[1:]
 
-    return string
+    return str
 
 
 def get_string(list):
     str = ""
     for item in list:
-        str = ' '.join([str, item])
+        str = str + item + ' '
 
+    str = str.rstrip(" ")
     return str
 
 
 def calculate_n_tokens(depth, tokens_list, probabilities):
 
-    current = tokens_list[:depth - 1]
+    current = []
 
-    for item in tokens_list[depth - 1:]:
+    for item in tokens_list:
         current.append(item)
+
+        if len(current) < depth:
+            continue
 
         str = get_string(current[:-1:])
 
+        if probabilities.get(str, None) is None:
+            probabilities[str] = dict()
+
+        if probabilities[str].get(item, None) is None:
+            probabilities[str][item] = 0
+
         probabilities[str][item] += 1
 
-        current = current[1:]
+        current = current[1::]
 
     return probabilities
 
@@ -137,7 +145,7 @@ def calculate_n_tokens(depth, tokens_list, probabilities):
 def calculate_all_len_tokens(max_depth,
                              list):
 
-    probabilities = collections.defaultdict(lambda: collections.defaultdict(int))
+    probabilities = dict()
 
     for d in range(1, max_depth + 1, 1):
         probabilities = calculate_n_tokens(d,
@@ -149,10 +157,24 @@ def calculate_all_len_tokens(max_depth,
 
 def read_initial_text(input_file):
 
-    with open(input_file, "r") as input:
-        full_text = input.read()
+    tokens_list = []
 
-    tokens_list = re.findall(f'\w+|[{string.punctuation}]', full_test)
+    input = open(input_file, "r")
+    s = input.read()
+
+    s = s.split()
+
+    for token in s:
+        while token != "" and (string.punctuation).find(token[0]) != -1:
+            tokens_list.append(token[0])
+            token = token[1:]
+
+        new_token = token.rstrip(string.punctuation)
+        tokens_list.append(new_token)
+
+        while token != "" and (string.punctuation).find(token[-1]) != -1:
+            tokens_list.append(token[-1])
+            token = token[:-1]
 
     input.close()
     return tokens_list
@@ -169,12 +191,12 @@ def decide(current_text, probabilities, uniform_proba):
     if uniform_proba > random_number:
         current_text = ""
 
-    my_dict = probabilities[get_string(current_text)]
+    dict = probabilities[get_string(current_text)]
 
     list_keys = []
     list_vals = []
 
-    for k, v in my_dict.items():
+    for k, v in dict.items():
         list_keys.append(k)
         list_vals.append(v)
 
@@ -192,19 +214,19 @@ def decide(current_text, probabilities, uniform_proba):
 
 def generate(depth, probabilities, len_of_generating_text, uniform_proba):
 
-    history = []
+    current_text = []
     output_text = []
 
     for i in range(len_of_generating_text):
 
         new_item = decide(current_text, probabilities, uniform_proba)
 
-       history.append(new_item)
+        current_text.append(new_item)
         output_text.append(new_item)
 
         while (len(current_text) > depth or
                probabilities.get(get_string(current_text), None) is None):
-           history =history[1:]
+            current_text = current_text[1::]
 
     print(get_string(output_text), end="\n\n")
     result = final_format(get_string(output_text))
@@ -255,10 +277,10 @@ subparsers = parser.add_subparsers(help='sub-command help')
 parser_probab = subparsers.add_parser('calculate_probabilities',
                                       help='for colculating probabilities')
 
-parser_probab.add_argument('--input_file', default,
+parser_probab.add_argument('--input_file', default=None,
                            help='file name with text, more than 10000 words')
 
-parser_probab.add_argument('--probabilities_file', default,
+parser_probab.add_argument('--probabilities_file', default=None,
                            help='file name where dict' +
                                 ' with probabilities will be writen. (.json)')
 
@@ -270,7 +292,7 @@ parser_probab.set_defaults(func=calculate_probabilities)
 parser_gen = subparsers.add_parser('generate_text',
                                    help='for generating random text')
 
-parser_gen.add_argument('--probabilities_file', default,
+parser_gen.add_argument('--probabilities_file', default=None,
                         help='File name where dict with probabilities is.' +
                              ' It must be .json')
 
@@ -285,16 +307,12 @@ parser_gen.add_argument('--uniform_proba', default=0, type=float,
                              'schoose new token' +
                              ' from all ignoring depth-1 last ones')
 
-parser_gen.add_argument('--output_file', default,
+parser_gen.add_argument('--output_file', default=None,
                         help='(Optional, defaul terminal). ' +
                              'File name where generated text will' +
                              'be written. (.txt)')
 
 parser_gen.set_defaults(func=generate_text)
-
-#args = parser.parse_args('generate_text --probabilities_file probabilities.json --depth 2 --number_of_tokens 15'.split())
-#args.func(args)
-#args = parser.parse_args('calculate_probabilities --input_file text.txt --probabilities_file probabilities.json --depth 2'.split())
 
 # args = parser.parse_args()
 args.func(args)
