@@ -406,8 +406,8 @@ parser_gen.add_argument('--output_file',
 
 parser_gen.set_defaults(func=generate_text)
 
-args = parser.parse_args('generate_text --probabilities_file probabilities.json --depth 2 --number_of_tokens 15'.split())
+#args = parser.parse_args('generate_text --probabilities_file probabilities.json --depth 2 --number_of_tokens 15'.split())
 #args = parser.parse_args('calculate_probabilities --mask \d+ --input_file text.txt --probabilities_file probabilities.json --depth 2'.split())
 
-# args = parser.parse_args()
+args = parser.parse_args()
 args.func(args)
