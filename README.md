@@ -15,7 +15,7 @@ Following text was used for generating probabilities: [Carroll Lewis - Alices Ad
 
 
 * counting probabilities:  
-    `calculate_probabilities --input_file <filename1.txt> --probabilities_file <filename2.json> --depth <int>`
+    `calculate_probabilities --mask \d+ --input_file <filename1.txt> --probabilities_file <filename2.json> --depth <int>`
 
 ---
 
