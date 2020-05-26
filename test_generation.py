@@ -21,10 +21,9 @@ def final_format(my_string):
     punctuation = ",.!':;$%?"
     for char in punctuation:
         my_string = my_string.replace(" " + char, char)
-        
-    for char in punctuation:
-        my_string = re.sub("[{}]".format(char) + "{2,}", "", my_string)
-        
+
+    my_string = re.sub("[{}]{{2,}}".format(punctuation), "", my_string)
+
     my_string = my_string.replace(" )", ")")
     my_string = my_string.replace("( ", "(")
     my_string = my_string.replace(",.", ".")
@@ -44,13 +43,13 @@ def final_format(my_string):
     end_of_sentence = ".?!"
     for char in end_of_sentence:
         for letter in string.ascii_lowercase:
-            my_string = my_string.replace(char + " " + letter, 
+            my_string = my_string.replace(char + " " + letter,
                                           char + " " + letter.upper())
 
     never_end_of_sentence = ","
     for char in never_end_of_sentence:
         for letter in string.ascii_lowercase:
-            my_string = my_string.replace(char + " " + letter, 
+            my_string = my_string.replace(char + " " + letter,
                                           char + " " + letter.lower())
 
     my_string.strip()
@@ -122,7 +121,7 @@ def is_correct(my_str):
     for char in string.punctuation:
         if (char + " " + char) in my_str:
             return 0
-   
+
     return no_unpaired_brackets(my_str)[0]
 
 
@@ -134,7 +133,6 @@ def calculate_n_tokens(depth, tokens_tuple, probabilities):
         current = ()
 
     for item in tokens_tuple[depth - 1:]:
-        
         key = get_string(current)
         if is_correct(key + item):
             probabilities[key][item] += 1
@@ -148,14 +146,12 @@ def calculate_n_tokens(depth, tokens_tuple, probabilities):
 
 
 def calculate_all_len_tokens(max_depth,
-                             my_tuple, 
+                             my_tuple,
                              probabilities):
-
     for d in range(1, max_depth + 1, 1):
         probabilities = calculate_n_tokens(d,
                                            my_tuple,
                                            probabilities)
-
     return probabilities
 
 
@@ -215,7 +211,7 @@ def generate(args, probabilities, history=[]):
 
         key = get_string(history)
         while (len(history) > depth or
-               key not in probabilities.keys() or 
+               key not in probabilities.keys() or
                len(probabilities[key]) == 0):
             history = history[1:]
             key = key[1:]
@@ -240,9 +236,9 @@ def calculate_probabilities(args):
 
     tokens_list = read_initial_text(args.input_file, args)
 
-    probabilities = collections.defaultdict(lambda: 
+    probabilities = collections.defaultdict(lambda:
                                             collections.defaultdict(int))
-    
+
     calculate_all_len_tokens(args.depth, tokens_list, probabilities)
 
     with open(args.probabilities_file, "w") as write_file:
@@ -256,12 +252,11 @@ def generate_text(args):
 
     history = []
 
-    generate(args, 
-             probabilities, 
+    generate(args,
+             probabilities,
              history)
 
     while True:
-      
         total_input = input()
 
         try:
@@ -279,10 +274,9 @@ def generate_text(args):
 
         elif next_command == 'generate':
             args.number_of_tokens = (0 if new_args == "" else int(new_args))
-            history = generate(args, 
-                               probabilities, 
+            history = generate(args,
+                               probabilities,
                                history)[1]
-
         elif next_command == 'clear':
             history = []
 
@@ -300,7 +294,7 @@ def generate_text(args):
             str_history = get_string(history)
 
             while (len(history) > args.depth or
-                   str_history not in probabilities.keys() or 
+                   str_history not in probabilities.keys() or
                    len(probabilities[str_history]) == 0):
                         history = history[1:]
                         str_history = str_history[1:]
@@ -329,8 +323,8 @@ def create_parser():
 
     parser_probab = subparsers.add_parser('calculate_probabilities')
 
-    parser_probab.add_argument('--mask', 
-                               type=str, 
+    parser_probab.add_argument('--mask',
+                               type=str,
                                default="\w+|[{string.punctuation}]")
 
     parser_probab.add_argument('--input_file',
@@ -369,7 +363,7 @@ def create_parser():
 
 parser = create_parser()
 
-# args = parser.parse_args('generate_text --probabilities_file 
+# args = parser.parse_args('generate_text --probabilities_file
 # probabilities.json --depth 2 --number_of_tokens 115'.split())
 # args = parser.parse_args('calculate_probabilities --input_file text.txt
 # --probabilities_file probabilities.json --depth 2'.split())
