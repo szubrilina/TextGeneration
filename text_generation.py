@@ -259,7 +259,7 @@ def generate_text(args):
 
         try:
             next_command, new_args = total_input.split(maxsplit=1)
-        except:
+        except Exception:
             next_command = total_input
             new_args = ""
 
