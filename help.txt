@@ -1,0 +1,23 @@
+availadle commands:
+--help
+
+generate number<int>
+    generate text with number tokens
+
+clear
+    clear current history
+
+set_history new_history<string>
+    current history is set equal to new_history
+
+observe_history
+    print current history
+
+change_depth number<int>
+    current depth is made to be equal number
+
+probabilities
+    print probabilities for the next token
+
+finish
+    exite programm
