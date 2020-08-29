@@ -1,7 +1,7 @@
 # TextGeneration
  Python HW
 
-**Working version** of code in file: `text_generation.py`
+**Working version** of code in file: `TextGeneration.py`
 
 Following text was used for generating probabilities: [Carroll Lewis - Alices Adventures in Wonderland](https://drive.google.com/file/d/1khBh2dAaTVcYQ2WAESrf6yml0Jx3vub_/view?usp=sharing)
 
@@ -16,6 +16,30 @@ Following text was used for generating probabilities: [Carroll Lewis - Alices Ad
 
 * counting probabilities:  
     `calculate_probabilities --mask \d+ --input_file <filename1.txt> --probabilities_file <filename2.json> --depth <int>`
+    
+* availadle commands:
+   `--help`
+   
+   `generate number<int>`
+       generate text with number tokens
+
+   `clear`
+       clear current history
+
+   `set_history new_history<string>`
+       current history is set equal to new_history
+
+   `observe_history`
+       print current history
+
+   `change_depth number<int>`
+       current depth is made to be equal number
+
+   `probabilities`
+       print probabilities for the next token
+
+   `finish`
+       exite programm
 
 ---
 
