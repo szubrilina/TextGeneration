@@ -1,7 +1,7 @@
 # TextGeneration
  Python HW
 
-**Working version** of code in file: `TextGeneration.py`
+**Working version** of code in file: `text_generation.py`
 
 Following text was used for generating probabilities: [Carroll Lewis - Alices Adventures in Wonderland](https://drive.google.com/file/d/1khBh2dAaTVcYQ2WAESrf6yml0Jx3vub_/view?usp=sharing)
 
@@ -26,7 +26,7 @@ There was a queer-shaped little creature, but said nothing the proper and
 the others all joined in chorus"!  
 
 
-All spoke at once the thimble, saying to herself "It’s all his fancy sneezes; 
-was to eat the comfits: this fireplace nearer to of history, you know—" 
+All spoke at once the thimble, saying to herself "Itâ€™s all his fancy sneezes; 
+was to eat the comfits: this fireplace nearer to of history, you knowâ€”" 
 She boxed the Queen's voice in the schoolroom, and she went back for a dunce all 
 directions the Gryphon, and giving and waited to to be in. The Rabbit sends in a moment.
