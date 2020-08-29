@@ -18,6 +18,8 @@ Following text was used for generating probabilities: [Carroll Lewis - Alices Ad
     `calculate_probabilities --mask \d+ --input_file <filename1.txt> --probabilities_file <filename2.json> --depth <int>`
     
 * availadle commands:
+
+
    `--help`
    
    `generate number<int>`
